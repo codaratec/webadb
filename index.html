@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connect an Android device over USB and run shell commands, manage files, install APKs and capture screenshots — entirely in your browser, with nothing uploaded.">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E">
+    <title>webadb — Android ADB in your browser</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/webadb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="webadb-page">
+    <header>
+        <div class="logo">
+            <h1><span>webadb</span> · Android in your browser</h1>
+        </div>
+        <nav class="header-links">
+            <a href="https://73hi.com/webadb.html" target="_blank" rel="noopener noreferrer">Hosted demo</a>
+            <a href="https://github.com/yume-chan/ya-webadb" target="_blank" rel="noopener noreferrer">ya-webadb</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="tool-section webadb-intro" aria-labelledby="webadb-title">
+            <div class="webadb-title-row">
+                <div>
+                    <div class="webadb-eyebrow"><i class="fab fa-android" aria-hidden="true"></i> Android Debug Bridge</div>
+                    <h1 id="webadb-title">webadb</h1>
+                    <p class="webadb-lead">Your Android device, connected to your browser.</p>
+                </div>
+                <span class="webadb-local-badge"><i class="fas fa-shield-alt" aria-hidden="true"></i> Direct USB connection</span>
+            </div>
+            <p class="webadb-description">Run shell commands, transfer files, install APKs and capture screenshots. Device data travels directly between your browser and Android over USB.</p>
+
+            <div class="webadb-connection">
+                <div class="webadb-device-summary">
+                    <span class="webadb-device-icon"><i class="fas fa-mobile-alt" aria-hidden="true"></i></span>
+                    <div>
+                        <h2 id="deviceName">No device connected</h2>
+                        <span class="webadb-status-badge" id="connectionBadge"><span class="webadb-status-dot" aria-hidden="true"></span><span id="connectionStatus" role="status">Disconnected</span></span>
+                    </div>
+                </div>
+                <div class="webadb-actions">
+                    <button type="button" class="btn btn-primary" id="connectBtn"><i class="fas fa-plug" aria-hidden="true"></i> Connect device</button>
+                    <button type="button" class="btn btn-outline" id="disconnectBtn" disabled>Disconnect</button>
+                </div>
+            </div>
+            <dl class="webadb-device-info" id="deviceInfo" hidden></dl>
+            <p class="webadb-notice" id="statusLine" role="status" aria-live="polite" hidden></p>
+            <noscript><p class="webadb-notice is-error">Enable JavaScript to use webadb.</p></noscript>
+        </section>
+
+        <fieldset class="webadb-controls" id="deviceControls" disabled>
+            <legend class="webadb-sr-only">Device tools</legend>
+            <div class="webadb-workspace">
+                <section class="webadb-panel webadb-shell-panel" aria-labelledby="shellTitle">
+                    <div class="webadb-panel-heading">
+                        <h2 id="shellTitle"><i class="fas fa-terminal" aria-hidden="true"></i> Shell</h2>
+                        <button type="button" class="webadb-text-button" id="clearShellBtn">Clear output</button>
+                    </div>
+                    <form id="shellForm">
+                        <label class="webadb-field-label" for="shellCommand">Command</label>
+                        <div class="webadb-command-row">
+                            <textarea id="shellCommand" rows="2" placeholder="e.g. getprop ro.product.model" spellcheck="false" autocomplete="off" dir="ltr"></textarea>
+                            <div class="webadb-command-actions">
+                                <button type="submit" class="btn btn-primary" id="runCommandBtn"><i class="fas fa-play" aria-hidden="true"></i> Run</button>
+                                <button type="button" class="btn btn-outline" id="stopCommandBtn" disabled>Stop</button>
+                            </div>
+                        </div>
+                    </form>
+                    <pre id="shellOutput" class="webadb-terminal" tabindex="0" aria-labelledby="shellTitle" dir="ltr"></pre>
+                </section>
+
+                <section class="webadb-panel webadb-files-panel" aria-labelledby="filesTitle">
+                    <div class="webadb-panel-heading">
+                        <h2 id="filesTitle"><i class="fas fa-folder-open" aria-hidden="true"></i> Files</h2>
+                        <span class="webadb-muted" id="fileCount"></span>
+                    </div>
+                    <form id="fileForm" class="webadb-path-form">
+                        <label class="webadb-field-label" for="remotePath">Device path</label>
+                        <div class="webadb-path-row">
+                            <input id="remotePath" type="text" value="/sdcard" spellcheck="false" autocomplete="off" dir="ltr">
+                            <button class="btn btn-outline" type="submit" id="listFilesBtn">Open</button>
+                        </div>
+                    </form>
+                    <div class="webadb-file-toolbar">
+                        <div class="webadb-actions">
+                            <button type="button" class="btn btn-outline webadb-small-button" id="parentDirBtn"><i class="fas fa-level-up-alt" aria-hidden="true"></i> Up</button>
+                            <button type="button" class="btn btn-outline webadb-small-button" id="refreshFilesBtn"><i class="fas fa-sync-alt" aria-hidden="true"></i> Refresh</button>
+                        </div>
+                        <button type="button" class="btn btn-outline webadb-small-button" id="uploadBtn"><i class="fas fa-upload" aria-hidden="true"></i> Upload files</button>
+                        <input id="uploadInput" type="file" multiple hidden aria-label="Upload files">
+                    </div>
+                    <div class="webadb-file-scroll">
+                        <table class="webadb-file-table">
+                            <thead><tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Size</th><th scope="col">Actions</th></tr></thead>
+                            <tbody id="fileTableBody"><tr><td colspan="4" class="webadb-empty">Connect a device to browse files.</td></tr></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="webadb-panel" aria-labelledby="apkTitle">
+                    <div class="webadb-panel-heading"><h2 id="apkTitle"><i class="fas fa-box-open" aria-hidden="true"></i> Install APK</h2></div>
+                    <p class="webadb-panel-description">Choose an APK from your computer to install on the connected device.</p>
+                    <label class="webadb-file-picker" for="apkInput"><i class="fas fa-file-import" aria-hidden="true"></i><span>Choose APK</span><span class="webadb-muted" id="apkFileName">No file selected</span></label>
+                    <input id="apkInput" type="file" accept=".apk,application/vnd.android.package-archive" class="webadb-sr-only">
+                    <button type="button" class="btn btn-primary" id="installApkBtn"><i class="fas fa-download" aria-hidden="true"></i> Install</button>
+                    <p class="webadb-notice" id="installStatus" role="status" hidden></p>
+                </section>
+
+                <section class="webadb-panel" aria-labelledby="screenshotTitle">
+                    <div class="webadb-panel-heading"><h2 id="screenshotTitle"><i class="fas fa-camera" aria-hidden="true"></i> Screenshot</h2></div>
+                    <p class="webadb-panel-description">Capture the device screen as a PNG image.</p>
+                    <div class="webadb-actions">
+                        <button type="button" class="btn btn-primary" id="captureScreenshotBtn"><i class="fas fa-camera" aria-hidden="true"></i> Capture</button>
+                        <button type="button" class="btn btn-outline" id="downloadScreenshotBtn" disabled><i class="fas fa-download" aria-hidden="true"></i> Download PNG</button>
+                    </div>
+                    <div class="webadb-screenshot">
+                        <p id="screenshotEmpty" class="webadb-muted">Your screenshot will appear here.</p>
+                        <img id="screenshotPreview" alt="Device screenshot" hidden>
+                    </div>
+                </section>
+            </div>
+        </fieldset>
+
+        <section class="webadb-panel webadb-setup" aria-labelledby="setupTitle">
+            <div class="webadb-panel-heading"><h2 id="setupTitle"><i class="fas fa-circle-info" aria-hidden="true"></i> Before you connect</h2></div>
+            <ol class="webadb-setup-list">
+                <li><strong>Use a compatible browser</strong><p>Open this page in desktop Chrome or Edge over HTTPS or localhost. WebUSB is required.</p></li>
+                <li><strong>Enable USB debugging</strong><p>On Android, enable Developer options and USB debugging. Connect a USB data cable, unlock the device and approve the debugging prompt.</p></li>
+                <li><strong>Free the USB connection</strong><p>Close desktop ADB and other tools using the device. On Windows, install the Android device's USB driver if the connection fails.</p></li>
+            </ol>
+            <details class="webadb-troubleshooting">
+                <summary>USB picker shows no compatible devices?</summary>
+                <p>A charging connection alone is not enough. The computer must detect the phone's USB data connection and Android's ADB interface.</p>
+                <ul>
+                    <li>Try a USB data cable and a direct computer USB port. Select File transfer on Android to check that the computer can see the phone, then reconnect with USB debugging enabled.</li>
+                    <li>On Windows, check Device Manager for an Android ADB interface. If it is missing, check the cable and your manufacturer's ADB USB driver.</li>
+                    <li>If another ADB tool can detect the phone, close that tool before connecting here.</li>
+                </ul>
+            </details>
+            <div class="webadb-key-note"><i class="fas fa-key" aria-hidden="true"></i><div><p>The ADB authentication key is saved in this browser for future connections. Forget it when using a shared computer; Android may ask you to authorize again.</p><button type="button" class="webadb-text-button" id="forgetKeyBtn">Forget saved key</button></div></div>
+            <p class="webadb-attribution">Powered by <a href="https://github.com/yume-chan/ya-webadb" target="_blank" rel="noopener noreferrer">ya-webadb</a> · <a href="https://github.com/yume-chan/ya-webadb/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Upstream license</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://73hi.com/webadb.html" target="_blank" rel="noopener noreferrer">Hosted demo</a>
+            <a href="https://github.com/yume-chan/ya-webadb" target="_blank" rel="noopener noreferrer">ya-webadb upstream</a>
+            <a href="LICENSE" rel="license">License</a>
+        </div>
+        <p>webadb is free and open-source software; device data never leaves this page.</p>
+        <p>&copy; 2026 <a href="https://codaratec.com" target="_blank" rel="noopener noreferrer">CodaraTec Inc.</a> · UI released under the MIT License</p>
+    </footer>
+    <script type="module" src="js/webadb.js"></script>
+</body>
+</html>

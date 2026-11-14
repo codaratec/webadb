@@ -1,0 +1,207 @@
+/*
+ * base.css - minimal design tokens and shared layout for the standalone webadb page.
+ * Derived from the 73hi Online Tools design system (MIT licensed, same project author).
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ========== reset ========== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Scripts toggle visibility with the hidden attribute. This rule keeps it
+   working even for components whose class sets a display value. */
+[hidden] {
+    display: none !important;
+}
+
+/* ========== design tokens ========== */
+:root {
+    /* brand colours */
+    --primary-color: #ef4444;
+    --primary-hover: #dc2626;
+    --primary-soft: rgba(239, 68, 68, 0.08);
+    --link-color: #dc2626;
+    --link-hover-color: #b91c1c;
+
+    /* neutral colours */
+    --text-color: #0f172a;
+    --light-text: #64748b;
+    --border-color: #e2e8f0;
+    --surface: #ffffff;
+    --surface-muted: #f8fafc;
+    --page-bg: #f4f6f9;
+
+    /* shape and shadow */
+    --border-radius: 10px;
+    --radius-lg: 16px;
+    --box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.05);
+
+    /* typography */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, 'Courier New', monospace;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--page-bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+main {
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1.25rem;
+}
+
+/* ========== header ========== */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo h1 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.logo h1 span {
+    color: var(--primary-color);
+}
+
+.header-links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.header-links a {
+    color: var(--light-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.header-links a:hover {
+    color: var(--primary-color);
+}
+
+/* ========== content sections ========== */
+.tool-section {
+    background: var(--surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1.75rem;
+    box-shadow: var(--box-shadow);
+}
+
+a {
+    color: var(--link-color);
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+/* ========== buttons ========== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.15rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-outline:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--primary-soft);
+}
+
+/* ========== footer ========== */
+footer {
+    margin-top: 3rem;
+    padding: 2.75rem 1.5rem;
+    background: #0f172a;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    margin-bottom: 1.25rem;
+}
+
+footer a:any-link {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.18s ease;
+}
+
+footer a:any-link:hover,
+footer a:any-link:focus-visible {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+footer p {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
+
+.footer-muted {
+    color: #64748b !important;
+    font-size: 0.8rem !important;
+}

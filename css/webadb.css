@@ -1,0 +1,713 @@
+/* Browser ADB workspace. Shared site navigation and tokens live in common.css. */
+.webadb-page [hidden] {
+    display: none !important;
+}
+.webadb-page {
+    --webadb-terminal: #111b2e;
+    --webadb-terminal-text: #dbeafe;
+}
+
+.webadb-intro {
+    overflow: hidden;
+    border-top: 3px solid var(--primary-color);
+}
+
+.webadb-title-row,
+.webadb-connection,
+.webadb-panel-heading,
+.webadb-actions,
+.webadb-file-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.webadb-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--light-text);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.webadb-eyebrow i {
+    color: var(--primary-hover);
+    font-size: 1rem;
+}
+
+.webadb-intro h1 {
+    margin: 0.25rem 0 0;
+    font-size: clamp(2rem, 5vw, 2.65rem);
+    line-height: 1.2;
+    letter-spacing: -0.055em;
+}
+
+.webadb-lead {
+    margin-top: 0.45rem;
+    font-size: 1.06rem;
+    font-weight: 500;
+}
+
+.webadb-local-badge {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #bbebcd;
+    border-radius: 999px;
+    background: #f0fdf4;
+    color: #15803d;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.webadb-description {
+    max-width: 56rem;
+    margin: 1rem 0 1.6rem;
+    color: var(--light-text);
+    font-size: 0.91rem;
+}
+
+.webadb-connection {
+    flex-wrap: wrap;
+    padding: 1.2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--surface-muted);
+}
+
+.webadb-device-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.webadb-device-icon {
+    display: flex;
+    flex: 0 0 46px;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 54px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--light-text);
+    font-size: 1.7rem;
+}
+
+.webadb-intro #deviceName {
+    display: block;
+    margin: 0 0 0.25rem;
+    font-size: 1rem;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+}
+
+.webadb-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--light-text);
+    font-size: 0.8rem;
+}
+
+.webadb-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #94a3b8;
+}
+
+.webadb-status-badge.is-connected {
+    color: #15803d;
+}
+
+.webadb-status-badge.is-connected .webadb-status-dot {
+    background: #22c55e;
+    box-shadow: 0 0 0 3px #dcfce7;
+}
+
+.webadb-status-badge.is-connecting {
+    color: #a16207;
+}
+
+.webadb-status-badge.is-connecting .webadb-status-dot {
+    background: #eab308;
+    animation: webadb-pulse 1.4s ease-in-out infinite;
+}
+
+.webadb-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.65rem;
+}
+
+.webadb-device-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.8rem 1.5rem;
+    margin: 1.2rem 0 0;
+    font-size: 0.84rem;
+}
+
+.webadb-device-info dt,
+.webadb-device-info .info-label {
+    color: var(--light-text);
+    font-size: 0.77rem;
+}
+
+.webadb-device-info dd,
+.webadb-device-info .info-value {
+    margin: 0.15rem 0 0;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.webadb-controls {
+    min-width: 0;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    border: 0;
+}
+
+.webadb-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    align-items: start;
+    gap: 1.25rem;
+}
+
+.webadb-panel {
+    min-width: 0;
+    padding: 1.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--box-shadow);
+}
+
+.webadb-panel-heading {
+    align-items: baseline;
+    margin-bottom: 1rem;
+    gap: 0.6rem;
+}
+
+.webadb-panel h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.webadb-panel h2 i {
+    color: var(--primary-color);
+    font-size: 0.95rem;
+}
+
+.webadb-panel-description {
+    margin-bottom: 1.1rem;
+    color: var(--light-text);
+    font-size: 0.86rem;
+}
+
+.webadb-muted {
+    color: var(--light-text);
+    font-size: 0.8rem;
+}
+
+.webadb-field-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.webadb-command-row {
+    display: flex;
+    gap: 0.65rem;
+}
+
+.webadb-command-row textarea {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    resize: vertical;
+    font-family: var(--font-mono);
+    font-size: 0.83rem;
+    line-height: 1.6;
+}
+
+.webadb-command-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.webadb-command-actions .btn {
+    min-width: 76px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.82rem;
+}
+
+.webadb-terminal {
+    min-height: 242px;
+    max-height: 440px;
+    margin-top: 1rem;
+    padding: 1rem;
+    overflow: auto;
+    border: 1px solid #243148;
+    border-radius: 10px;
+    background: var(--webadb-terminal);
+    color: var(--webadb-terminal-text);
+    font-family: var(--font-mono);
+    font-size: 0.79rem;
+    line-height: 1.7;
+    text-align: left;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    tab-size: 4;
+}
+
+.webadb-terminal:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+.webadb-path-row {
+    display: flex;
+    gap: 0.55rem;
+}
+
+.webadb-path-row input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+}
+
+.webadb-path-row .btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.83rem;
+}
+
+.webadb-file-toolbar {
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    padding: 0.85rem 0;
+}
+
+.webadb-file-toolbar .webadb-actions {
+    gap: 0.4rem;
+}
+
+.webadb-small-button {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.75rem;
+}
+
+.webadb-file-scroll {
+    min-height: 254px;
+    max-height: 360px;
+    overflow: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.webadb-file-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.79rem;
+    text-align: start;
+}
+
+.webadb-file-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.65rem 0.8rem;
+    background: var(--surface-muted);
+    color: var(--light-text);
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.webadb-file-table td {
+    padding: 0.65rem 0.8rem;
+    border-top: 1px solid var(--border-color);
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.webadb-file-table td:first-child {
+    max-width: 230px;
+}
+
+.webadb-file-table td:not(:first-child) {
+    white-space: nowrap;
+}
+
+.webadb-file-table tbody tr:hover {
+    background: #fbfcfe;
+}
+
+.webadb-file-table button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    max-width: 100%;
+    padding: 0.1rem 0;
+    border: 0;
+    background: transparent;
+    color: var(--primary-hover);
+    font-size: inherit;
+    font-weight: 500;
+    text-align: start;
+    overflow-wrap: anywhere;
+}
+
+.webadb-file-table td:first-child button {
+    color: var(--text-color);
+}
+
+.webadb-file-table button:hover:not(:disabled) {
+    text-decoration: underline;
+}
+
+.webadb-file-table button i {
+    flex-shrink: 0;
+    color: var(--light-text);
+}
+
+.webadb-file-table .webadb-empty {
+    padding: 4rem 1rem;
+    color: var(--light-text);
+    font-size: 0.82rem;
+    text-align: center;
+    white-space: normal;
+}
+
+.webadb-file-picker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 1.1rem;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    background: var(--surface-muted);
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.webadb-file-picker > i {
+    color: var(--primary-hover);
+}
+
+.webadb-file-picker .webadb-muted {
+    flex-basis: 100%;
+    font-size: 0.75rem;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+}
+
+.webadb-file-picker:hover,
+.webadb-file-picker:has(+ input:focus-visible) {
+    border-color: var(--primary-color);
+}
+
+.webadb-screenshot {
+    display: grid;
+    min-height: 110px;
+    place-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--surface-muted);
+    text-align: center;
+}
+
+.webadb-screenshot img {
+    max-width: 100%;
+    max-height: 320px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px #0f172a14;
+}
+
+.webadb-setup-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: webadb-steps;
+}
+
+.webadb-setup-list li {
+    position: relative;
+    padding-inline-start: 2.15rem;
+    counter-increment: webadb-steps;
+}
+
+.webadb-setup-list li::before {
+    position: absolute;
+    inset-inline-start: 0;
+    display: grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--primary-soft);
+    color: var(--primary-hover);
+    content: counter(webadb-steps);
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.webadb-setup-list strong {
+    display: block;
+    margin: 0.15rem 0 0.4rem;
+    font-size: 0.82rem;
+}
+
+.webadb-setup-list p,
+.webadb-key-note p {
+    color: var(--light-text);
+    font-size: 0.8rem;
+    line-height: 1.7;
+}
+
+.webadb-key-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--surface-muted);
+}
+
+.webadb-troubleshooting {
+    margin-top: 1.4rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--surface-muted);
+    font-size: 0.83rem;
+    line-height: 1.7;
+}
+
+.webadb-troubleshooting summary {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.webadb-troubleshooting p,
+.webadb-troubleshooting ul {
+    margin-top: 0.65rem;
+    color: var(--light-text);
+}
+
+.webadb-troubleshooting ul {
+    padding-inline-start: 1.3rem;
+}
+
+.webadb-key-note > i {
+    padding-top: 0.3rem;
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.webadb-key-note .webadb-text-button {
+    margin-top: 0.35rem;
+}
+
+.webadb-text-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--primary-hover);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-align: start;
+}
+
+.webadb-text-button:hover:not(:disabled) {
+    text-decoration: underline;
+}
+
+.webadb-notice {
+    margin: 1rem 0 0;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #c7d8ff;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.webadb-notice.is-error {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.webadb-notice.is-success {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.webadb-attribution {
+    margin-top: 1rem;
+    color: var(--light-text);
+    font-size: 0.74rem;
+    text-align: end;
+}
+
+.webadb-attribution a {
+    color: var(--link-color);
+    text-decoration-line: underline;
+}
+
+.webadb-attribution a:hover,
+.webadb-attribution a:focus-visible {
+    color: var(--link-hover-color);
+}
+
+.webadb-page .btn:disabled,
+.webadb-page button:disabled,
+.webadb-page input:disabled,
+.webadb-page textarea:disabled {
+    cursor: not-allowed;
+}
+
+.webadb-page button:disabled {
+    opacity: 0.48;
+    box-shadow: none;
+    transform: none;
+}
+
+.webadb-controls:disabled .webadb-file-picker {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.webadb-page button:focus-visible,
+.webadb-page a:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+.webadb-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+@keyframes webadb-pulse {
+    50% { opacity: 0.35; }
+}
+
+@media (max-width: 900px) {
+    .webadb-title-row {
+        align-items: flex-start;
+    }
+
+    .webadb-local-badge {
+        margin-top: 0.3rem;
+    }
+
+    .webadb-workspace {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .webadb-setup-list {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+    }
+
+    .webadb-terminal {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 580px) {
+    .webadb-title-row {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .webadb-connection {
+        padding: 1rem;
+    }
+
+    .webadb-connection > .webadb-actions {
+        width: 100%;
+    }
+
+    .webadb-connection > .webadb-actions .btn {
+        flex: 1;
+        padding-inline: 0.65rem;
+        font-size: 0.82rem;
+    }
+
+    .webadb-panel {
+        padding: 1rem;
+    }
+
+    .webadb-file-table th,
+    .webadb-file-table td {
+        padding: 0.6rem;
+    }
+
+    .webadb-file-table td:first-child {
+        max-width: 135px;
+    }
+
+    .webadb-command-row {
+        flex-direction: column;
+    }
+
+    .webadb-command-actions {
+        flex-direction: row;
+    }
+
+    .webadb-command-actions .btn {
+        flex: 1;
+    }
+
+    .webadb-attribution {
+        text-align: start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .webadb-status-badge.is-connecting .webadb-status-dot {
+        animation: none;
+    }
+}
